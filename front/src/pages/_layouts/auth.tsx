@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
 export function AuthLayout() {
-    return (<>
-        <div>Cabecalho</div>
-        <Outlet />
+  return (
+    <>
+      <div>Cabecalhos</div>
+      <Outlet />
     </>
-    )
+  )
 }

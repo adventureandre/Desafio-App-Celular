@@ -1,17 +1,18 @@
-import {ThemeProvider} from "styled-components";
-import {defaultTheme} from "./styles/themes/default.ts";
-import {GlobalStyle} from "./styles/global.ts";
-import {BrowserRouter} from "react-router-dom";
-import {Router} from "./routes.tsx";
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from './styles/themes/default.ts'
+import { GlobalStyle } from './styles/global.ts'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes.tsx'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 export function App() {
-    return (
-        <ThemeProvider theme={defaultTheme}>
-            <BrowserRouter>
-                <Router/>
-            </BrowserRouter>
-            <GlobalStyle/>
-        </ThemeProvider>
-    )
+  return (
+    <HelmetProvider>
+      <Helmet titleTemplate="%s | AppCelular" />
+      <ThemeProvider theme={defaultTheme}>
+        <RouterProvider router={router} />
+        <GlobalStyle />
+      </ThemeProvider>
+    </HelmetProvider>
+  )
 }
-
