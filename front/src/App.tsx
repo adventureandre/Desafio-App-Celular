@@ -4,6 +4,7 @@ import { GlobalStyle } from './styles/global.ts'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes.tsx'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+import './styles/app.css'
 
 export function App() {
   return (
