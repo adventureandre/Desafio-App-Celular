@@ -15,7 +15,6 @@ const Container = styled.main`
 
 export function AppLayout() {
   const { signed } = useContext(AuthContext)
-  console.log(signed)
 
   return signed ? (
     <Container>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ProductContainer,
   ProductTable,
@@ -10,6 +10,8 @@ import {
   Button,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
+import { useFieldArray } from 'react-hook-form'
+import { api } from '../../../lib/axios'
 
 interface ProdutoProps {
   id: number
@@ -22,31 +24,7 @@ interface ProdutoProps {
 
 const Produtos = () => {
   // state produtos
-  const [produtos, setProdutos] = useState<ProdutoProps[]>([
-    {
-      id: 1,
-      nome: 'Produto 1',
-      descricao: 'Descrição do Produto 1',
-      quantidadeDisponivel: 10,
-      valorUnitario: 15.99,
-      tipo: 'Tipo A',
-    },
-    {
-      id: 2,
-      nome: 'Produto 2',
-      descricao: 'Descrição do Produto 2',
-      quantidadeDisponivel: 5,
-      valorUnitario: 25.49,
-      tipo: 'Tipo B',
-    },
-    {
-      id: 3,
-      nome: 'Produto 3',
-      quantidadeDisponivel: 20,
-      valorUnitario: 10.99,
-      tipo: 'Tipo C',
-    },
-  ])
+  const [produtos, setProdutos] = useState<ProdutoProps[]>([])
 
   const navigate = useNavigate()
 
@@ -72,6 +50,18 @@ const Produtos = () => {
       )
     }
   }
+
+  useEffect(() => {
+    const listProdutos = async () => {
+      try {
+        const response = await api.get('/produto')
+        setProdutos(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error)
+      }
+    }
+    listProdutos()
+  }, [])
 
   return (
     <ProductContainer>

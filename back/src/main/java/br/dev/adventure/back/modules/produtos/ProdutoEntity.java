@@ -1,23 +1,20 @@
 package br.dev.adventure.back.modules.produtos;
 
-import java.util.UUID;
-
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Data
 public class ProdutoEntity {
-    
-    private UUID id;
+    private int id;
 
-    @NotEmpty(message = "o campo nome e invalído")
+    @NotEmpty(message = "O campo nome é inválido")
     private String name;
 
-    private String description;
+    private String descricao;
 
-    @Email(message = "O campo deve conter um email valido")
-    private String quantidade;
+    @PositiveOrZero(message = "A quantidade deve ser um número positivo ou zero")
+    private int quantidade;
     
     private String valor;
 
