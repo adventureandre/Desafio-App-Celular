@@ -5,6 +5,7 @@ import {
   HomeIcon,
   PhoneIcon,
   UserIcon,
+  VendaIcon,
 } from './styles'
 import { AuthContext } from '../../context/auth'
 import { SignOut } from 'phosphor-react'
@@ -22,6 +23,11 @@ export function Header() {
   function handleCadastroProd() {
     navigate(`/cadproduto`)
   }
+
+  function handleVenda() {
+    navigate(`/vendas`)
+  }
+
   function handleHome() {
     navigate(`/`)
   }
@@ -47,6 +53,15 @@ export function Header() {
             >
               <CadastroIcon />
               <span>Cadastro</span>
+            </div>
+          </li>
+          <li>
+            <div
+              onClick={handleVenda}
+              className="flex items-center gap-1 cursor-pointer"
+            >
+              <VendaIcon />
+              <span>Vender</span>
             </div>
           </li>
         </ul>

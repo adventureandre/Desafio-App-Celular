@@ -1,4 +1,4 @@
-import { DeviceMobile, FilePlus, House, UserCircle } from 'phosphor-react'
+import { DeviceMobile, FilePlus, House, Swap, UserCircle } from 'phosphor-react'
 import { styled } from 'styled-components'
 
 export const Container = styled.main`
@@ -32,6 +32,12 @@ export const CadastroIcon = styled(FilePlus).attrs(({ theme }) => ({
 `
 
 export const UserIcon = styled(UserCircle).attrs(({ theme }) => ({
+  size: 30,
+  color: theme['gray-500'],
+}))`
+  margin-left: 10px;
+`
+export const VendaIcon = styled(Swap).attrs(({ theme }) => ({
   size: 30,
   color: theme['gray-500'],
 }))`

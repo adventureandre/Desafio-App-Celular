@@ -50,4 +50,11 @@ public class ProdutoRepositorio {
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     
     }
+
+    public List<ProdutoEntity> buscarPorPalavra(String palavra){
+        String sql = "SELECT * FROM produtos WHERE name LIKE ?";
+       String parametro = "%" + palavra + "%";
+        RowMapper<ProdutoEntity> rowMapper = new BeanPropertyRowMapper<>(ProdutoEntity.class);
+        return jdbcTemplate.query(sql, rowMapper, parametro);
+    }
 }

@@ -78,7 +78,6 @@ export function FormProduto() {
     }
   }, [id, setValue])
 
-  
   return (
     <CadastroContainer>
       <h2>Cadastro de Produto</h2>

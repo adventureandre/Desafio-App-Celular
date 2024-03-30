@@ -2,7 +2,7 @@ import { StyledButton } from './styles'
 
 interface ButtonProps {
   children: React.ReactNode
-  disabled: boolean
+  disabled?: boolean
 }
 
 export const Button = ({ children, disabled }: ButtonProps) => {

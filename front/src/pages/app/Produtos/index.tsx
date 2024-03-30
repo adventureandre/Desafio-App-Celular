@@ -16,8 +16,8 @@ interface ProdutoProps {
   id: number
   name: string
   descricao?: string
-  quantidadeDisponivel: number
-  valorUnitario: number
+  quantidade: number
+  valor: number
   tipo: string
 }
 
@@ -27,12 +27,12 @@ const Produtos = () => {
 
   const navigate = useNavigate()
 
-  // editar um produto
+  // editar um produto via api  arrumar ainda
   const handleEdit = (id: number) => {
     navigate(`/editproduto/${id}`)
   }
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     const vendaVinculada = false // Substitua com a lógica real para verificar a existência de vendas
 
     if (!vendaVinculada) {
@@ -40,8 +40,15 @@ const Produtos = () => {
         'Tem certeza que deseja excluir este produto?',
       )
       if (confirmarExclusao) {
-        const novosProdutos = produtos.filter((produto) => produto.id !== id)
-        setProdutos(novosProdutos)
+        try {
+          await api.delete(`/produto/${id}`)
+          const novosProdutos = produtos.filter((produto) => produto.id !== id)
+          setProdutos(novosProdutos)
+          alert('Produto excluído com sucesso.')
+        } catch (error) {
+          console.error('Erro ao excluir produto:', error)
+          alert('Erro ao excluir o produto.')
+        }
       }
     } else {
       alert(
@@ -82,10 +89,8 @@ const Produtos = () => {
               <ProductTableCell>{produto.id}</ProductTableCell>
               <ProductTableCell>{produto.name}</ProductTableCell>
               <ProductTableCell>{produto.descricao}</ProductTableCell>
-              <ProductTableCell>
-                {produto.quantidadeDisponivel}
-              </ProductTableCell>
-              <ProductTableCell>{produto.valorUnitario}</ProductTableCell>
+              <ProductTableCell>{produto.quantidade}</ProductTableCell>
+              <ProductTableCell>R$ {produto.valor}</ProductTableCell>
               <ProductTableCell>
                 <Button onClick={() => handleEdit(produto.id)}>Editar</Button>
                 <Button onClick={() => handleDelete(produto.id)}>

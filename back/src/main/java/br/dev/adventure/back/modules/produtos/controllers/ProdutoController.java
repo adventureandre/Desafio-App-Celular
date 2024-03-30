@@ -56,4 +56,9 @@ private final ProdutoRepositorio produtoRepositorio;
         produtoRepositorio.delete(id);
     }
 
+    @GetMapping("/buscar/{palavra}")
+    public List<ProdutoEntity> buscarPorPalavra(@PathVariable String palavra) {
+        return produtoRepositorio.buscarPorPalavra(palavra);
+    }
+
 }
