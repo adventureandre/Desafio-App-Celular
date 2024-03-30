@@ -35,6 +35,11 @@ private final ProdutoRepositorio produtoRepositorio;
         return produtoRepositorio.listar();
     }
 
+    @GetMapping("/{id}")
+    public ProdutoEntity getProdutoById(@PathVariable int id) {
+        return produtoRepositorio.findById(id);
+    }
+
     @PostMapping
     public void create(@Valid @RequestBody ProdutoEntity produtoEntity) {
         produtoRepositorio.save(produtoEntity);

@@ -10,12 +10,11 @@ import {
   Button,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
-import { useFieldArray } from 'react-hook-form'
 import { api } from '../../../lib/axios'
 
 interface ProdutoProps {
   id: number
-  nome: string
+  name: string
   descricao?: string
   quantidadeDisponivel: number
   valorUnitario: number
@@ -81,7 +80,7 @@ const Produtos = () => {
           {produtos.map((produto) => (
             <ProductTableRow key={produto.id}>
               <ProductTableCell>{produto.id}</ProductTableCell>
-              <ProductTableCell>{produto.nome}</ProductTableCell>
+              <ProductTableCell>{produto.name}</ProductTableCell>
               <ProductTableCell>{produto.descricao}</ProductTableCell>
               <ProductTableCell>
                 {produto.quantidadeDisponivel}

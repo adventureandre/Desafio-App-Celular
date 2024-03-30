@@ -3,6 +3,8 @@ package br.dev.adventure.back.modules.produtos.repositorio;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +43,11 @@ public class ProdutoRepositorio {
         jdbcTemplate.update("UPDATE produtos SET name = ?, descricao = ?, quantidade = ?, valor = ? WHERE id = ?",
             produto.getName(), produto.getDescricao(), produto.getQuantidade(), produto.getValor(), produto.getId());
     }
+
+    public ProdutoEntity findById(int id) {
+        String sql = "SELECT * FROM produtos WHERE id = ?";
+        RowMapper<ProdutoEntity> rowMapper = new BeanPropertyRowMapper<>(ProdutoEntity.class);
+        return jdbcTemplate.queryForObject(sql, rowMapper, id);
     
+    }
 }
