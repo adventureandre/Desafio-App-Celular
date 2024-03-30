@@ -14,18 +14,14 @@ const dataForm = z.object({
 
   descricao: z.string().optional(),
 
-  quantidade: z
-    .string()
-    .regex(/^[1-9]\d*$/, {
-      message:
-        'A quantidade deve ser um número inteiro positivo diferente de zero.',
-    })
+  quantidade: z.string().regex(/^[1-9]\d*$/, {
+    message:
+      'A quantidade deve ser um número inteiro positivo diferente de zero.',
+  }),
 
-  valor: z
-    .string()
-    .regex(/^\d*\.?\d*$/, {
-      message: 'O valor unitário deve ser um número válido.',
-    })
+  valor: z.string().regex(/^\d*\.?\d*$/, {
+    message: 'O valor unitário deve ser um número válido.',
+  }),
 })
 
 type ShemaDataForm = z.infer<typeof dataForm>
