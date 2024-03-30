@@ -24,8 +24,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserProps | null>(null)
 
   const loadingStoreData = async () => {
-    const storegeUser = localStorage.getItem('@Auth:user')
-    const storegeToken = localStorage.getItem('@Auth:token')
+    const storegeUser = localStorage.getItem('@AuthAppCelular:user')
+    const storegeToken = localStorage.getItem('@AuthAppCelular:token')
 
     if (storegeUser && storegeToken) {
       const user: UserProps = JSON.parse(storegeUser)
@@ -43,19 +43,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(response.data)
       api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`
 
-      localStorage.setItem('@Auth:token', response.data.token)
-
       // So Para Exenplos vou enviar tudo kkkk tempo ta curto
-      localStorage.setItem('@Auth:user', JSON.stringify(response.data))
+      localStorage.setItem('@AuthAppCelular:user',JSON.stringify(response.data),)
+      localStorage.setItem('@AuthAppCelular:token', response.data.token)
     } catch (e) {
       throw new Error('Credenciais inválidas.')
     }
   }
 
+  const signOut = () => {
+    localStorage.removeItem('@AuthAppCelular:user')
+    localStorage.removeItem('@AuthAppCelular:token')
+    setUser(null)
+  }
+
   const value = {
     user,
-    signed: !!user,
+    signed: user !== null && user !== undefined,
     signIn,
+    signOut,
   }
 
   useEffect(() => {

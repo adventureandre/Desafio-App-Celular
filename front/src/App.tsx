@@ -1,14 +1,13 @@
-import { RouterProvider } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { Toaster } from 'sonner'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-
-import { router } from './routes.tsx'
 
 import { defaultTheme } from './styles/themes/default.ts'
 import { GlobalStyle } from './styles/global.ts'
 import './styles/app.css'
 import { AuthProvider } from './context/auth.tsx'
+import { AppRouter } from './Routes/index.tsx'
 
 export function App() {
   return (
@@ -17,7 +16,9 @@ export function App() {
       <Toaster richColors />
       <ThemeProvider theme={defaultTheme}>
         <AuthProvider>
-          <RouterProvider router={router} />
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
         </AuthProvider>
         <GlobalStyle />
       </ThemeProvider>
