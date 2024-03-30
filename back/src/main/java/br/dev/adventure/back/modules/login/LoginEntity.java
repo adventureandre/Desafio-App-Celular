@@ -18,4 +18,6 @@ public class LoginEntity {
 
     @Length(min = 4, max = 20, message = "A senha deve conter entre (4) e (20) caracteres")
     private String password;
+
+    private String token;
 }

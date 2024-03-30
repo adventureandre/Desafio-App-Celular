@@ -22,20 +22,27 @@ public class LoginRepositorio {
                                        loginEntity.setName(rs.getString("name"));
                                        loginEntity.setEmail(rs.getString("email"));
                                        loginEntity.setPassword(rs.getString("password"));
+                                       loginEntity.setToken(rs.getString("token"));
                                        return loginEntity;
                                    });
     }
 
-    @SuppressWarnings("deprecation")
-    public boolean validateCredentials(String email, String password) {
-        // Implemente a lógica para validar as credenciais aqui
-        // Por exemplo, consultando o banco de dados para verificar se as credenciais são válidas
-        // Retorne true se as credenciais forem válidas, caso contrário, retorne false
-        return jdbcTemplate.queryForObject(
-            "SELECT COUNT(*) FROM users WHERE email = ? AND password = ?",
+    public LoginEntity findByEmailAndPassword(String email, String password) {
+        @SuppressWarnings("deprecation")
+        List<LoginEntity> result = jdbcTemplate.query(
+            "SELECT * FROM users WHERE email = ? AND password = ?",
             new Object[]{email, password},
-            Integer.class
-        ) == 1;
+            (rs, rowNum) -> {
+                LoginEntity loginEntity = new LoginEntity();
+                loginEntity.setId(rs.getInt("id"));
+                loginEntity.setName(rs.getString("name"));
+                loginEntity.setEmail(rs.getString("email"));
+                loginEntity.setPassword(rs.getString("password"));
+                loginEntity.setToken(rs.getString("token"));
+                return loginEntity;
+            }
+        );
+
+        return result.isEmpty() ? null : result.get(0);
     }
-    
 }

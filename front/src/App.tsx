@@ -8,6 +8,7 @@ import { router } from './routes.tsx'
 import { defaultTheme } from './styles/themes/default.ts'
 import { GlobalStyle } from './styles/global.ts'
 import './styles/app.css'
+import { AuthProvider } from './context/auth.tsx'
 
 export function App() {
   return (
@@ -15,7 +16,9 @@ export function App() {
       <Helmet titleTemplate="%s | AppCelular" />
       <Toaster richColors />
       <ThemeProvider theme={defaultTheme}>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
         <GlobalStyle />
       </ThemeProvider>
     </HelmetProvider>
