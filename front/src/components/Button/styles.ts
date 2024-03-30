@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from 'styled-components'
 
 export const StyledButton = styled.button`
   background-color: ${(props) => props.theme['gray-100']};
@@ -25,9 +25,13 @@ export const StyledButton = styled.button`
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
 
-  &:disabled {
-    background-color: ${(props) => props.theme['gray-300']};
-    color: ${(props) => props.theme['gray-400']};
-    cursor: not-allowed;
-  }
+  ${(props) =>
+    props.disabled &&
+    css`
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: ${(props) => props.theme['gray-300']};
+      color: ${(props) => props.theme['gray-400']};
+      cursor: not-allowed;
+    `}
 `
