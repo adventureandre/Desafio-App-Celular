@@ -5,28 +5,27 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './styles'
+import { api } from '../../../lib/axios'
 
 const dataForm = z.object({
-  nome: z
+  name: z
     .string()
     .min(3, { message: 'O nome precisa ter pelo menos 3 letras.' }),
 
   descricao: z.string().optional(),
 
-  quantidadeDisponivel: z
+  quantidade: z
     .string()
     .regex(/^[1-9]\d*$/, {
       message:
         'A quantidade deve ser um número inteiro positivo diferente de zero.',
     })
-    .transform((value) => parseInt(value)),
 
-  valorUnitario: z
+  valor: z
     .string()
     .regex(/^\d*\.?\d*$/, {
       message: 'O valor unitário deve ser um número válido.',
     })
-    .transform((value) => parseFloat(value)),
 })
 
 type ShemaDataForm = z.infer<typeof dataForm>
@@ -45,13 +44,12 @@ export function FormProduto() {
 
   const handleCadProduto = async (data: ShemaDataForm) => {
     try {
-      // Simulando uma requisição assíncrona
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      console.log('data', data)
-      toast.success('Produto cadastrado com sucesso!')
-    } catch (e) {
-      console.error(e)
-      toast.error('Erro ao cadastrar na API')
+      console.log(data)
+      const response = await api.post('/produto', {
+        data,
+      })
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error)
     }
 
     reset()
@@ -63,8 +61,8 @@ export function FormProduto() {
       <FormContainer onSubmit={handleSubmit(handleCadProduto)}>
         <div>
           <label htmlFor="nome">Nome:</label>
-          <input type="text" id="nome" {...register('nome')} />
-          <p>{errors.nome?.message}</p>
+          <input type="text" id="name" {...register('name')} />
+          <p>{errors.name?.message}</p>
         </div>
 
         <div>
@@ -78,15 +76,15 @@ export function FormProduto() {
           <input
             type="number"
             id="quantidadeDisponivel"
-            {...register('quantidadeDisponivel')}
+            {...register('quantidade')}
           />
-          <p>{errors.quantidadeDisponivel?.message}</p>
+          <p>{errors.quantidade?.message}</p>
         </div>
 
         <div>
           <label htmlFor="valorUnitario">Valor Unitário:</label>
-          <input {...register('valorUnitario')} />
-          <p>{errors.valorUnitario?.message}</p>
+          <input {...register('valor')} />
+          <p>{errors.valor?.message}</p>
         </div>
 
         <div>

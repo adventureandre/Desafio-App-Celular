@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ProductContainer = styled.div`
-  margin: 20px;
+  margin: 20px 50px;
 `
 
 export const ProductTable = styled.table`
@@ -24,7 +24,9 @@ export const ProductTableBody = styled.tbody``
 
 export const ProductTableRow = styled.tr`
   &:nth-child(even) {
-    background-color: ${(props) => props.theme['gray-200']};
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: ${(props) => props.theme['gray-200']};
   }
 `
 
