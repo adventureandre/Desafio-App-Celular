@@ -92,7 +92,9 @@ const Produtos = () => {
               <ProductTableCell>{produto.name}</ProductTableCell>
               <ProductTableCell>{produto.descricao}</ProductTableCell>
               <ProductTableCell>{produto.quantidade}</ProductTableCell>
-              <ProductTableCell>R$ {produto.valor}</ProductTableCell>
+              <ProductTableCell>
+                R$ {Number(produto.valor).toFixed(2)}
+              </ProductTableCell>
               <ProductTableCell>
                 <Button onClick={() => handleEdit(produto.id)}>Editar</Button>
                 <Button onClick={() => handleDelete(produto.id)}>

@@ -92,7 +92,10 @@ export const VendaList = () => {
               <ProductTableCell>{venda.nomeCliente}</ProductTableCell>
               <ProductTableCell>{venda.nomeProdutos}</ProductTableCell>
               <ProductTableCell>{venda.quantidade}</ProductTableCell>
-              <ProductTableCell>R$ {venda.total}</ProductTableCell>
+
+              <ProductTableCell>
+                R$ {Number(venda.total).toFixed(2)}
+              </ProductTableCell>
               <ProductTableCell>
                 <Button onClick={() => handleEdit(venda.id)}>Editar</Button>
                 <Button onClick={() => handleDelete(venda.id)}>Excluir</Button>
