@@ -6,6 +6,7 @@ import {
   PhoneIcon,
   UserIcon,
   VendaIcon,
+  VendaListIcon,
 } from './styles'
 import { AuthContext } from '../../context/auth'
 import { SignOut } from 'phosphor-react'
@@ -26,6 +27,10 @@ export function Header() {
 
   function handleVenda() {
     navigate(`/vendas`)
+  }
+
+  function handleVendaList() {
+    navigate(`/vendaslist`)
   }
 
   function handleHome() {
@@ -62,6 +67,15 @@ export function Header() {
             >
               <VendaIcon />
               <span>Vender</span>
+            </div>
+          </li>
+          <li>
+            <div
+              onClick={handleVendaList}
+              className="flex items-center gap-1 cursor-pointer"
+            >
+              <VendaListIcon />
+              <span>Listar Vendas</span>
             </div>
           </li>
         </ul>

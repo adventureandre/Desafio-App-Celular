@@ -1,3 +1,5 @@
+// Aqui daria para criar um componente reutilizável, mas estou com pouco tempo. 😄
+
 import { useEffect, useState } from 'react'
 import {
   ProductContainer,
@@ -12,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios'
 
-interface ProdutoProps {
+export interface ProdutoProps {
   id: number
   name: string
   descricao?: string

@@ -1,33 +1,106 @@
-import { useState, useEffect } from 'react'
-import { Button } from '../../../components/Button'
-import { CadastroContainer, FormContainer } from './styles'
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+
 import { api } from '../../../lib/axios'
 
+import { ProdutoProps } from '../Produtos'
+import { Button } from '../../../components/Button'
+import { CadastroContainer, FormContainer } from './styles'
+
+interface Client {
+  id: number
+  name: string
+}
+
 export const Vendas = () => {
-  const [searchProductValue, setSearchProductValue] = useState('')
-  const [productSuggestions, setProductSuggestions] = useState([])
-  const [clienteName, setClienteName] = useState('')
-  const [quantidade, setQuantidade] = useState(0)
+  const navigate = useNavigate()
+  const [productSuggestions, setProductSuggestions] = useState<ProdutoProps[]>(
+    [],
+  )
+  const [clientSuggestions, setClientSuggestions] = useState<Client[]>([])
+  const [searchProductValue, setSearchProductValue] = useState<string>('')
+  const [searchClientValue, setSearchClientValue] = useState<string>('')
+  const [quantidade, setQuantidade] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const handleProductSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchProductValue(event.target.value)
+  }
+
+  const handleClientSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchClientValue(event.target.value)
+  }
+
+  const handleFinalizarVenda = async (e: FormEvent<HTMLDivElement>) => {
+    e.preventDefault()
+
+    if (
+      !productSuggestions.length ||
+      !clientSuggestions.length ||
+      quantidade <= 0
+    ) {
+      toast.error('Por favor, preencha todos os campos corretamente.')
+      return
+    }
+
+    const productSendVenda = productSuggestions[0]
+    const clienteSendVenda = clientSuggestions[0]
+    const total = productSendVenda.valor * quantidade
+
+    const dataSend = {
+      idcliente: clienteSendVenda.id,
+      produtos: productSendVenda.id,
+      quantidade,
+      total,
+    }
+
+    try {
+      setLoading(true)
+      await api.post('/venda', dataSend)
+      navigate('/vendaslist')
+    } catch (error) {
+      console.error('Erro ao finalizar venda:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
+      if (!searchProductValue) return
+
       try {
-        const response = await api.get(`/produto/buscar/${searchProductValue}`)
+        const response = await api.get<ProdutoProps[]>(
+          `/produto/buscar/${searchProductValue}`,
+        )
         setProductSuggestions(response.data)
       } catch (error) {
         console.error('Erro ao buscar produto:', error)
       }
     }
 
-    if (searchProductValue !== '') {
-      const timeoutId = setTimeout(fetchProducts, 500)
-      return () => clearTimeout(timeoutId)
-    }
+    const timeoutId = setTimeout(fetchProducts, 500)
+    return () => clearTimeout(timeoutId)
   }, [searchProductValue])
 
-  const handleSearchChange = (event) => {
-    setSearchProductValue(event.target.value)
-  }
+  useEffect(() => {
+    const fetchClients = async () => {
+      if (!searchClientValue) return
+
+      try {
+        const response = await api.get<Client[]>(
+          `/cliente/buscar/${searchClientValue}`,
+        )
+        setClientSuggestions(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar cliente:', error)
+      }
+    }
+
+    const timeoutId = setTimeout(fetchClients, 500)
+    return () => clearTimeout(timeoutId)
+  }, [searchClientValue])
 
   return (
     <CadastroContainer>
@@ -38,18 +111,24 @@ export const Vendas = () => {
           <input
             type="text"
             id="namecliente"
-            value={clienteName}
-            onChange={(event) => setClienteName(event.target.value)}
+            value={searchClientValue}
+            onChange={handleClientSearchChange}
+            list="clientesugestao"
           />
+          <datalist id="clientesugestao">
+            {clientSuggestions.map((client) => (
+              <option key={client.id} value={client.name} />
+            ))}
+          </datalist>
         </div>
 
         <div>
-          <label htmlFor="produtos">Produto:</label>
+          <label htmlFor="produtos">Pesquise o Produto:</label>
           <input
             type="text"
-            id="produto"
+            id="produtosugestao"
             value={searchProductValue}
-            onChange={handleSearchChange}
+            onChange={handleProductSearchChange}
             list="produtosugestao"
           />
           <datalist id="produtosugestao">
@@ -57,6 +136,16 @@ export const Vendas = () => {
               <option key={product.id} value={product.name} />
             ))}
           </datalist>
+
+          <label htmlFor="produtos">Produto:</label>
+          <input
+            type="text"
+            disabled
+            id="produto"
+            value={
+              productSuggestions.length > 0 ? productSuggestions[0].name : ''
+            }
+          />
         </div>
 
         <div>
@@ -64,15 +153,17 @@ export const Vendas = () => {
           <input
             type="number"
             id="quantidade"
-            onChange={(event) => setQuantidade(event.target.value)}
+            onChange={(event) => setQuantidade(Number(event.target.value))}
             value={quantidade}
           />
         </div>
 
-        <div>
-          <Button>Finalizar Venda</Button>
+        <div onClick={handleFinalizarVenda}>
+          <Button disabled={loading}>Finalizar Venda</Button>
         </div>
       </FormContainer>
     </CadastroContainer>
   )
 }
+
+export default Vendas

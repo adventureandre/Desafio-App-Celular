@@ -1,4 +1,11 @@
-import { DeviceMobile, FilePlus, House, Swap, UserCircle } from 'phosphor-react'
+import {
+  DeviceMobile,
+  FilePlus,
+  House,
+  ListChecks,
+  Swap,
+  UserCircle,
+} from 'phosphor-react'
 import { styled } from 'styled-components'
 
 export const Container = styled.main`
@@ -38,6 +45,13 @@ export const UserIcon = styled(UserCircle).attrs(({ theme }) => ({
   margin-left: 10px;
 `
 export const VendaIcon = styled(Swap).attrs(({ theme }) => ({
+  size: 30,
+  color: theme['gray-500'],
+}))`
+  margin-left: 10px;
+`
+
+export const VendaListIcon = styled(ListChecks).attrs(({ theme }) => ({
   size: 30,
   color: theme['gray-500'],
 }))`
