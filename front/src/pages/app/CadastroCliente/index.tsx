@@ -23,7 +23,7 @@ export const CadastroCliente = () => {
 
   return (
     <CadastroContainer>
-        <Helmet title="Cadastar Cliente" />
+      <Helmet title="Cadastar Cliente" />
       <h2>Cadastro de Cliente</h2>
       <FormContainer>
         <div>

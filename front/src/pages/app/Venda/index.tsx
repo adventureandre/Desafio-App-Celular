@@ -1,13 +1,11 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-
 import { api } from '../../../lib/axios'
 
 import { ProdutoProps } from '../Produtos'
 import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './styles'
-import { Helmet } from 'react-helmet-async'
 
 interface Client {
   id: number
@@ -121,11 +119,10 @@ export const Vendas = () => {
 
   return (
     <CadastroContainer>
-      <Helmet title="Venda" />
       <h2>Vendas de Produto</h2>
       <FormContainer>
         <div>
-          <label htmlFor="nomecliente">Selecione o Cliente:</label>
+          <label htmlFor="namecliente">Selecione o Cliente:</label>
           <input
             type="text"
             id="namecliente"
@@ -133,16 +130,18 @@ export const Vendas = () => {
             onChange={handleClientSearchChange}
             list="clientesugestao"
           />
+
           <datalist id="clientesugestao">
             {clientSuggestions.map((client) => (
               <option key={client.id} value={client.name} />
             ))}
           </datalist>
+
           <label htmlFor="cliente">Cliente:</label>
           <input
             type="text"
             disabled
-            id="produto"
+            id="cliente"
             value={
               clientSuggestions.length > 0 ? clientSuggestions[0].name : ''
             }
@@ -150,10 +149,10 @@ export const Vendas = () => {
         </div>
 
         <div>
-          <label htmlFor="produtos">Pesquise o Produto:</label>
+          <label htmlFor="produtosugestao">Pesquise o Produto:</label>
           <input
             type="text"
-            id="produtosugestao"
+            id="nameprodutos"
             value={searchProductValue}
             onChange={handleProductSearchChange}
             list="produtosugestao"
@@ -164,7 +163,7 @@ export const Vendas = () => {
             ))}
           </datalist>
 
-          <label htmlFor="produtos">Produto:</label>
+          <label htmlFor="produto">Produto:</label>
           <input
             type="text"
             disabled
