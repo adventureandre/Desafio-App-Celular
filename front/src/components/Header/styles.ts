@@ -5,6 +5,7 @@ import {
   ListChecks,
   Swap,
   UserCircle,
+  UserCirclePlus,
 } from 'phosphor-react'
 import { styled } from 'styled-components'
 
@@ -55,5 +56,14 @@ export const VendaListIcon = styled(ListChecks).attrs(({ theme }) => ({
   size: 30,
   color: theme['gray-500'],
 }))`
+  margin-left: 10px;
+`
+
+export const CadastroClienteIcon = styled(UserCirclePlus).attrs(
+  ({ theme }) => ({
+    size: 30,
+    color: theme['gray-500'],
+  }),
+)`
   margin-left: 10px;
 `

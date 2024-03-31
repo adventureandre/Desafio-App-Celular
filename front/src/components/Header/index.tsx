@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
+  CadastroClienteIcon,
   CadastroIcon,
   Container,
   HomeIcon,
@@ -61,6 +62,16 @@ export function Header() {
             >
               <VendaListIcon />
               <span>Listar Vendas</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/cadcliente"
+              className={`flex items-center gap-1 cursor-pointer ${location.pathname === '/vendaslist' ? 'active' : ''}`}
+            >
+              <CadastroClienteIcon />
+              <span>Cadastrar Cliente</span>
             </NavLink>
           </li>
         </ul>

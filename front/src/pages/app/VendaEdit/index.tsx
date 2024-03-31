@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './style'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { api } from '../../../lib/axios'
 import { ProdutoProps } from '../Produtos'
 import { toast } from 'sonner'
@@ -63,7 +63,7 @@ export const VendaEdit = () => {
     }))
   }
 
-  const handleSendVendaEdit = async (e: ChangeEvent) => {
+  const handleSendVendaEdit = async (e: FormEvent) => {
     e.preventDefault()
     try {
       if (venda!.quantidade <= 0) {
@@ -95,7 +95,7 @@ export const VendaEdit = () => {
           await api.patch(`produto/${produto!.id}`, {
             quantidade: produto!.quantidade - venda!.quantidade + quantAntiga!,
           })
-          
+
           await api.put(`/venda/${venda!.id}`, venda!)
           navigate('/vendaslist')
 
@@ -117,7 +117,7 @@ export const VendaEdit = () => {
 
   return (
     <CadastroContainer>
-      <h2>Editar Venda {id}</h2>
+      <h2>Editar Venda</h2>
       <FormContainer>
         <div>
           <label htmlFor="nomecliente">Cliente:</label>
@@ -151,7 +151,7 @@ export const VendaEdit = () => {
         </div>
 
         <div onClick={handleSendVendaEdit}>
-          <Button disabled={loading}>Finalizar Venda</Button>
+          <Button disabled={loading}>Editar Venda</Button>
         </div>
       </FormContainer>
     </CadastroContainer>

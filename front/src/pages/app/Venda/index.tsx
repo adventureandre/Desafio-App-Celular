@@ -167,6 +167,12 @@ export const Vendas = () => {
             type="text"
             disabled
             id="produto"
+            className={
+              productSuggestions.length > 0 &&
+              productSuggestions[0].quantidade === 0
+                ? 'alert'
+                : ''
+            }
             value={
               productSuggestions.length > 0 ? productSuggestions[0].name : ''
             }

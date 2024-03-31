@@ -46,9 +46,5 @@ export const FormContainer = styled.form`
     border: 1px solid ${(props) => props.theme['gray-100']};
     color: ${(props) => props.theme['gray-500']};
     margin-bottom: 15px;
-
-    &.alert {
-      border: 1px solid red;
-    }
   }
 `
