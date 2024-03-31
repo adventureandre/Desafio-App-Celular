@@ -5,6 +5,7 @@ import { Dashboard } from '../pages/app/Dashboard'
 import { FormProduto } from '../pages/app/FormProduto'
 import { Vendas } from '../pages/app/Venda'
 import { VendaList } from '../pages/app/VendaList'
+import { VendaEdit } from '../pages/app/VendaEdit'
 
 export const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
         <Route path="/cadproduto" element={<FormProduto />} />
         <Route path="/vendas" element={<Vendas />} />
         <Route path="/vendaslist" element={<VendaList />} />
+        <Route path="/editvenda/:id" element={<VendaEdit />} />
         <Route path="/editproduto/:id" element={<FormProduto />} />
       </Route>
       <Route path="/sign-in" element={<SignIn />} />

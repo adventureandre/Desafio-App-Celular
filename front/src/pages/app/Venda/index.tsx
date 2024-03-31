@@ -15,6 +15,7 @@ interface Client {
 
 export const Vendas = () => {
   const navigate = useNavigate()
+
   const [productSuggestions, setProductSuggestions] = useState<ProdutoProps[]>(
     [],
   )
@@ -104,7 +105,7 @@ export const Vendas = () => {
 
   return (
     <CadastroContainer>
-      <h2>Cadastro de Produto</h2>
+      <h2>Vendas de Produto</h2>
       <FormContainer>
         <div>
           <label htmlFor="nomecliente">Cliente:</label>
@@ -165,5 +166,3 @@ export const Vendas = () => {
     </CadastroContainer>
   )
 }
-
-export default Vendas

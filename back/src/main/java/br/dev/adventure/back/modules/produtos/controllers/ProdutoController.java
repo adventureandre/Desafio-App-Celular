@@ -1,11 +1,13 @@
 package br.dev.adventure.back.modules.produtos.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,5 +62,35 @@ private final ProdutoRepositorio produtoRepositorio;
     public List<ProdutoEntity> buscarPorPalavra(@PathVariable String palavra) {
         return produtoRepositorio.buscarPorPalavra(palavra);
     }
+
+    @PatchMapping("/{id}")
+public void updateProduto(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+    ProdutoEntity produtoEntity = produtoRepositorio.findById(id);
+    if (produtoEntity != null) {
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    produtoEntity.setName((String) value);
+                    break;
+                case "descricao":
+                    produtoEntity.setDescricao((String) value);
+                    break;
+                case "quantidade":
+                    produtoEntity.setQuantidade((int) value);
+                    break;
+                case "valor":
+                    produtoEntity.setValor((String) value);
+                    break;
+                default:
+                    // Ignorar chaves desconhecidas
+                    break;
+            }
+        });
+        produtoRepositorio.save(produtoEntity);
+    } else {
+        throw new IllegalArgumentException("Produto com o ID especificado não encontrado.");
+    }
+}
+
 
 }
