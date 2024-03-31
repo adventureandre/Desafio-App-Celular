@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `vendas` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
-	`idcliente` int NOT NULL UNIQUE,
-	`produtos` varchar(255) NOT NULL,
+	`idcliente` int NOT NULL,
+	`produtos` int NOT NULL,
 	`quantidade` varchar(255) NOT NULL,
 	`total` varchar(255) NOT NULL,
 	PRIMARY KEY (`id`)
@@ -32,5 +32,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 );
 
 ALTER TABLE `vendas` ADD CONSTRAINT `vendas_fk1` FOREIGN KEY (`idcliente`) REFERENCES `clientes`(`id`);
+
+ALTER TABLE `vendas` ADD CONSTRAINT `vendas_fk2` FOREIGN KEY (`produtos`) REFERENCES `produtos`(`id`);
 
 
