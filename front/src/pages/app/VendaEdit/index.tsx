@@ -104,10 +104,6 @@ export const VendaEdit = () => {
         default:
           console.log('situação não reconhecida')
       }
-
-      console.log(venda?.quantidade)
-      console.log(produto?.quantidade)
-      console.log(quantAntiga)
     } catch (error) {
       console.error('Erro ao finalizar venda:', error)
     } finally {

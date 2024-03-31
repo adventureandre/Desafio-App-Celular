@@ -12,7 +12,6 @@ export const CadastroCliente = () => {
   function handleChangeName(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setName(e.target.value)
-    console.log(name)
   }
 
   async function handleSendCriente(e: FormEvent) {
