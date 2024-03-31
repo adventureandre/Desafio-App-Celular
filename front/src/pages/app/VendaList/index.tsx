@@ -12,6 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios'
 import { toast } from 'sonner'
+import { Helmet } from 'react-helmet-async'
 
 export interface VendaProps {
   id: number
@@ -84,6 +85,7 @@ export const VendaList = () => {
 
   return (
     <ProductContainer>
+       <Helmet title="Lista de Venda" />
       <h1>Vendas</h1>
       <ProductTable>
         <ProductTableHead>

@@ -7,6 +7,7 @@ import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './styles'
 import { api } from '../../../lib/axios'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 const dataForm = z.object({
   name: z
@@ -80,6 +81,7 @@ export function FormProduto() {
 
   return (
     <CadastroContainer>
+      <Helmet title="Cadastrar / Editar Venda" />
       <h2>Cadastro de Produto</h2>
       <FormContainer onSubmit={handleSubmit(handleActionForm)}>
         <div>

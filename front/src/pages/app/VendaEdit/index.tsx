@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { api } from '../../../lib/axios'
 import { ProdutoProps } from '../Produtos'
 import { toast } from 'sonner'
+import { Helmet } from 'react-helmet-async'
 
 interface Cliente {
   id: number
@@ -113,6 +114,7 @@ export const VendaEdit = () => {
 
   return (
     <CadastroContainer>
+      <Helmet title="Editar Venda" />
       <h2>Editar Venda</h2>
       <FormContainer>
         <div>

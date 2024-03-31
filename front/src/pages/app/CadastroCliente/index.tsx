@@ -3,6 +3,7 @@ import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './styels'
 import { api } from '../../../lib/axios'
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 
 export const CadastroCliente = () => {
   const [name, setName] = useState('')
@@ -22,6 +23,7 @@ export const CadastroCliente = () => {
 
   return (
     <CadastroContainer>
+        <Helmet title="Cadastar Cliente" />
       <h2>Cadastro de Cliente</h2>
       <FormContainer>
         <div>

@@ -7,6 +7,7 @@ import { api } from '../../../lib/axios'
 import { ProdutoProps } from '../Produtos'
 import { Button } from '../../../components/Button'
 import { CadastroContainer, FormContainer } from './styles'
+import { Helmet } from 'react-helmet-async'
 
 interface Client {
   id: number
@@ -120,6 +121,7 @@ export const Vendas = () => {
 
   return (
     <CadastroContainer>
+      <Helmet title="Venda" />
       <h2>Vendas de Produto</h2>
       <FormContainer>
         <div>
