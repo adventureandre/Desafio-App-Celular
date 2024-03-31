@@ -64,32 +64,33 @@ private final ProdutoRepositorio produtoRepositorio;
     }
 
     @PatchMapping("/{id}")
-public void updateProduto(@PathVariable int id, @RequestBody Map<String, Object> updates) {
-    ProdutoEntity produtoEntity = produtoRepositorio.findById(id);
-    if (produtoEntity != null) {
-        updates.forEach((key, value) -> {
-            switch (key) {
-                case "name":
-                    produtoEntity.setName((String) value);
-                    break;
-                case "descricao":
-                    produtoEntity.setDescricao((String) value);
-                    break;
-                case "quantidade":
-                    produtoEntity.setQuantidade((int) value);
-                    break;
-                case "valor":
-                    produtoEntity.setValor((String) value);
-                    break;
-                default:
-                    // Ignorar chaves desconhecidas
-                    break;
-            }
-        });
-        produtoRepositorio.save(produtoEntity);
-    } else {
-        throw new IllegalArgumentException("Produto com o ID especificado não encontrado.");
-    }
+    public void updateProduto(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        ProdutoEntity produtoEntity = produtoRepositorio.findById(id);
+        if (produtoEntity != null) {
+            updates.forEach((key, value) -> {
+                switch (key) {
+                    case "name":
+                        produtoEntity.setName((String) value);
+                        break;
+                    case "descricao":
+                        produtoEntity.setDescricao((String) value);
+                        break;
+                    case "quantidade":
+                        produtoEntity.setQuantidade((int) value);
+                        break;
+                    case "valor":
+                        produtoEntity.setValor((String) value);
+                        break;
+                    default:
+                       
+                        break;
+                }
+            });
+            produtoRepositorio.update(produtoEntity);
+        } else {
+            throw new IllegalArgumentException("Produto com o ID especificado não encontrado.");
+        }
+    
 }
 
 

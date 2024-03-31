@@ -58,6 +58,21 @@ export const Vendas = () => {
 
     try {
       setLoading(true)
+
+      const responseProduto = await api.get<ProdutoProps>(
+        `/produto/${dataSend.produtos}`,
+      )
+      const produto = responseProduto.data
+
+      if (produto.quantidade <= 0 || produto.quantidade < dataSend.quantidade) {
+        toast.error('Estoque a Baixo da quantidade')
+        return
+      }
+      const quantidade = produto.quantidade - dataSend.quantidade
+      const updateProduto = { ...produto, quantidade }
+
+      await api.put(`/produto/${produto.id}`, updateProduto)
+
       await api.post('/venda', dataSend)
       navigate('/vendaslist')
     } catch (error) {
