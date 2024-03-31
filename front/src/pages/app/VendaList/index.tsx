@@ -11,6 +11,7 @@ import {
 } from './styles'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios'
+import { toast } from 'sonner'
 
 export interface VendaProps {
   id: number
@@ -60,13 +61,23 @@ export const VendaList = () => {
     )
     if (confirmarExclusao) {
       try {
+        const vendaDelete = vendas.filter((venda) => venda.id === id)
+
+        const produtoretorn = await api.get(
+          `produto/${vendaDelete[0].produtos}`,
+        )
+
+        await api.patch(`produto/${vendaDelete[0].produtos}`, {
+          quantidade: vendaDelete[0].quantidade + produtoretorn.data.quantidade,
+        })
+
         await api.delete(`/venda/${id}`)
         const novasVendas = vendas.filter((venda) => venda.id !== id)
         setVendas(novasVendas)
         alert('Venda excluída com sucesso.')
       } catch (error) {
         console.error('Erro ao excluir venda:', error)
-        alert('Erro ao excluir a venda.')
+        toast.error('Erro ao excluir a venda.')
       }
     }
   }

@@ -123,7 +123,7 @@ export const Vendas = () => {
       <h2>Vendas de Produto</h2>
       <FormContainer>
         <div>
-          <label htmlFor="nomecliente">Cliente:</label>
+          <label htmlFor="nomecliente">Selecione o Cliente:</label>
           <input
             type="text"
             id="namecliente"
@@ -136,6 +136,15 @@ export const Vendas = () => {
               <option key={client.id} value={client.name} />
             ))}
           </datalist>
+          <label htmlFor="cliente">Cliente:</label>
+          <input
+            type="text"
+            disabled
+            id="produto"
+            value={
+              clientSuggestions.length > 0 ? clientSuggestions[0].name : ''
+            }
+          />
         </div>
 
         <div>

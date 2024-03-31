@@ -95,6 +95,7 @@ export const VendaEdit = () => {
           await api.patch(`produto/${produto!.id}`, {
             quantidade: produto!.quantidade - venda!.quantidade + quantAntiga!,
           })
+          
           await api.put(`/venda/${venda!.id}`, venda!)
           navigate('/vendaslist')
 

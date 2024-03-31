@@ -13,6 +13,7 @@ import {
 } from './styles'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios'
+import { toast } from 'sonner'
 
 export interface ProdutoProps {
   id: number
@@ -50,6 +51,7 @@ const Produtos = () => {
         } catch (error) {
           console.error('Erro ao excluir produto:', error)
           alert('Erro ao excluir o produto.')
+          toast.error('Opss! esse produto tem vinculo com uma venda.')
         }
       }
     } else {
